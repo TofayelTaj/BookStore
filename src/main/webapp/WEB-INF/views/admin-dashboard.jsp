@@ -13,7 +13,10 @@
 <body>
 
 
-<a href="/book">add new Book</a>
+<a href="/book">add new Book</a> <br>
+<a href="/author">add new author</a>
+
+
 
 
 

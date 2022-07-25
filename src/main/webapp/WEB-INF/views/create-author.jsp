@@ -16,10 +16,16 @@
 
 
 
+<h1>Create new Author</h1>
 
 
+<form action="/author" method="post">
 
-
+    <label> Author name</label>
+    <input type="text" name="name"> <br>
+    <input type="submit">
+    
+</form>
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
