@@ -1,8 +1,7 @@
 package com.example.bookstore.security;
 
-import com.example.bookstore.entities.Admin;
+import com.example.bookstore.entities.Customer;
 import com.example.bookstore.enums.UserType;
-import com.example.bookstore.services.AdminService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,30 +9,30 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class AdminDetails implements UserDetails {
+public class CustomerDetails implements UserDetails {
 
 
-    private Admin admin;
+    private Customer customer;
 
-    public AdminDetails(Admin admin){
-        this.admin = admin;
+    public CustomerDetails(Customer customer){
+        this.customer = customer;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(UserType.ADMIN.name());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(UserType.CUSTOMER.name());
         return List.of(authority);
     }
 
     @Override
     public String getPassword() {
-        return admin.getPassword();
+        return customer.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return admin.getEmail();
+        return customer.getEmail();
     }
 
     @Override
