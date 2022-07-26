@@ -14,7 +14,8 @@
 
 
 <a href="/book">add new Book</a> <br>
-<a href="/author">add new author</a>
+<a href="/author">add new author</a> <br>
+<a href="/category">add new category</a>
 
 
 

@@ -1,6 +1,5 @@
-<%@ page import="com.example.bookstore.entities.Author" %>
+<%@ page import="com.example.bookstore.entities.Book" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.bookstore.entities.Category" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,46 +10,24 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Add New Book</title>
+
+    <link rel="stylesheet" type="text/css" href="/resourceURL/static/css/style.css">
+    <title>category</title>
 </head>
 <body>
 
-<%
-    List<Author> authors = (List<Author>) request.getAttribute("allAuthor");
-    List<Category> categories = (List<Category>) request.getAttribute("allCategory");
-
-%>
-
-<form action="/book" method="post">
-    <label >Book title</label>
-    <input type="text" name="title"> <br>
-
-    <label > Book Price</label>
-    <input type="number" name="price"> <br>
 
 
-    <label > select author</label>
-    <select name="author" id="">
-        <% for (Author author: authors) { %>
-        <option value="<%=author.getId()%>"> <%=author.getName()%></option>
-        <%
-                }
-        %>
-    </select>
-    <br>
+<h1>Create new Category</h1>
 
-    <label > select category</label>
-    <select name="category" >
-        <% for (Category category: categories) { %>
-        <option value="<%=category.getId()%>"> <%=category.getCategoryName()%></option>
-        <%
-                }
-        %>
-    </select>
-    <br>
+<form action="/category" method="post">
+
+    <label > Category Name</label>
+    <input type="text" name="categoryName"> <br>
     <input type="submit">
-
 </form>
+
+
 
 
 
