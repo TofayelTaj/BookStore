@@ -5,18 +5,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Author {
+@NoArgsConstructor
+@Table(name = "order_table")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-//    @OneToMany
-//    private List<Book> books;
+    private String status;
+    @ManyToOne()
+    @JoinColumn(
+            name = "customer_id"
+    )
+    private Customer customer;
+    @ManyToOne
+    private CartItem cartItem;
+
 }

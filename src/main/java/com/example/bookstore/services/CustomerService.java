@@ -14,4 +14,8 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
+    public Customer findByEmail(String email){
+        return customerRepository.findCustomerByEmail(email);
+    }
+
 }

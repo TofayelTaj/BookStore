@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
@@ -25,10 +27,10 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public String processCustomerRegistration(@ModelAttribute Customer customer){
+    public String processCustomerRegistration(@ModelAttribute Customer customer, HttpServletRequest request){
         customer.setPassword(passwordConfig.passwordEncoder().encode(customer.getPassword()));
         customerService.saveCustomer(customer);
-        return "customer-registration";
+        return "redirect:" + request.getHeader("referer");
     }
 
 }
