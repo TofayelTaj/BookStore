@@ -20,4 +20,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<Book> findBookByCategoryId(Long categoryId){
+        return bookRepository.findBookByCategory(categoryId);
+    }
 }

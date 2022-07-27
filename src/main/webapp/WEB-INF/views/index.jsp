@@ -54,12 +54,6 @@
     </div>
   </nav>
 
-
-
-
-
-
-
 <!-- signup Modal -->
 <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -129,16 +123,13 @@
                     for (Category category : categories){
                 %>
                 <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" href="#"><%=category.getCategoryName()%></a>
+                    <a class="nav-link text-white btn" aria-current="page" href="/book/category/<%=category.getId()%>"><%=category.getCategoryName()%></a>
                 </li>
                 <%  }  %>
             </ul>
         </div>
     </div>
 </nav>
-
-
-
 
 <%--book list view--%>
 <div class="container">
@@ -170,29 +161,8 @@
         </div>
 
         <%}%>
-
-
     </div>
-
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%--<a href="/admin/register"> Register New Admin</a> <br>--%>
-<%--<a href="/customer"> Register New Customer</a> <br>--%>
-<%--<a href="/admin"> admin page</a> <br>--%>
-
 
 
     <!-- Optional JavaScript; choose one of the two! -->
