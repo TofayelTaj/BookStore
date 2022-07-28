@@ -5,22 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
-
+@NoArgsConstructor
+public class ShippingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String email;
-    private String password;
-    @OneToMany
-    private List<ShippingAddress> shippingAddressList;
+    private String addressLine;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Customer customer;
 
 
 }

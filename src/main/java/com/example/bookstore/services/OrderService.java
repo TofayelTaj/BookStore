@@ -12,6 +12,7 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+
     public void saveOrder(Order order){
         orderRepository.save(order);
     }
@@ -19,6 +20,10 @@ public class OrderService {
 
     public List<Order> orderListByCustomerId(Long customerId){
        return orderRepository.findAllByCustomerId(customerId);
+    }
+
+    public List<Order> findOrdersByCustomerIdAndStatus(Long customerId, String status){
+        return orderRepository.findAllByCustomerIdAndStatus(customerId, status);
     }
 
 

@@ -12,4 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "select * from order_table where customer_id = :customerId", nativeQuery = true)
     List<Order> findAllByCustomerId(@Param("customerId") Long customerId);
+
+    @Query(value = "select * from order_table where customer_id = :customerId and status = :status", nativeQuery = true)
+    List<Order> findAllByCustomerIdAndStatus(@Param("customerId") Long customerId, @Param("status") String status);
 }
