@@ -22,7 +22,7 @@ public class Order {
             name = "customer_id"
     )
     private Customer customer;
-    @ManyToOne
-    private CartItem cartItem;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Book book;
 
 }

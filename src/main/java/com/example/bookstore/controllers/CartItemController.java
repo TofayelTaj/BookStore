@@ -6,9 +6,7 @@ import com.example.bookstore.services.CartItemService;
 import com.example.bookstore.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,4 +30,12 @@ public class CartItemController {
         cartItemService.addToCart(cartItem);
         return "redirect:" + request.getHeader("referer");
     }
+
+    @GetMapping("/{cartItemId}")
+    public String removeFromCart(@PathVariable Long cartItemId, HttpServletRequest request){
+        cartItemService.removeFromCart(cartItemId);
+        return "redirect:" + request.getHeader("referer");
+    }
+
+
 }

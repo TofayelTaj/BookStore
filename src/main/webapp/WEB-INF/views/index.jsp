@@ -1,6 +1,9 @@
 <%@ page import="com.example.bookstore.entities.Book" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.bookstore.entities.Category" %>
+<%@ page import="com.example.bookstore.entities.CartItem" %>
+<%@ page import="com.example.bookstore.services.CartItemService" %>
+<%@ page import="com.example.bookstore.entities.Order" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -37,22 +40,110 @@
                 } else{
         %>
 
-          <button type="button" class="btn btn-warning position-relative mx-4">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#cartViewModal" class="btn btn-warning position-relative mx-4">
               Cart Items
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    <%=request.getAttribute("cartItemCount")%>
-    <span class="visually-hidden">Cart Items</span>
+                  <%=request.getAttribute("cartItemCount")%>
+                  <span class="visually-hidden">Cart Items</span>
   </span>
           </button>
 
+
+          <%--cart view modal--%>
+          <div class="modal fade " id="cartViewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog " style="width: 22rem;">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Your Cart Item's</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+
+                          <%--        cart items --%>
+
+                          <%
+                              long totalPrice =0l;
+                              List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
+                              for(CartItem cartItem : cartItems){
+                                  totalPrice += cartItem.getBook().getPrice();
+                          %>
+
+                          <div class="card  mb-2" style="width: 20rem;">
+                              <div class="p-1 row">
+                                  <div class="col-5">
+                                      <p class="card-text ps-1"><%=cartItem.getBook().getTitle()%></p>
+                                  </div>
+                                  <div class="col-4">
+                                      Tk.<%=cartItem.getBook().getPrice()%></div>
+                                  <div class="col-3">
+                                      <a href="/cart/<%=cartItem.getId()%>" class="btn btn-sm btn-danger">Remove</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <% } %>
+
+                      </div>
+
+
+                      <div class="modal-footer">
+                          <h6>Total : <%=totalPrice%></h6>
+                          <a href="/order" type="button" class="btn btn-primary">Order Now</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <a data-bs-toggle="modal" data-bs-target="#orderListModal" class="btn btn-warning me-2" href=""> Orders</a>
           <p class="text-white mt-2 me-2"><%=request.getUserPrincipal().getName()%></p>
-          <a class="btn btn-sm btn-outline-danger" href="/logout"> log out</a>
+          <a class="btn btn-sm btn-danger" href="/logout"> log out</a>
+
+
+<%--          order list view modal   --%>
+          <!-- Modal -->
+          <div class="modal fade" id="orderListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="">Modal title</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+
+                        <%
+                            List<Order> orders = (List<Order>) request.getAttribute("orders");
+                                for(Order order : orders){
+                        %>
+                          <div class="card  mb-2" style="width: 20rem;">
+                              <div class="p-1 row">
+                                  <div class="col-5">
+                                      <p class="card-text ps-1"><%=order.getBook().getTitle()%></p>
+                                  </div>
+                                  <div class="col-4">
+                                      <%=order.getStatus()%></div>
+
+                              </div>
+                          </div>
+
+                          <%
+                              }
+                          %>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
           <%
               }
           %>
       </div>
     </div>
   </nav>
+
+
 
 <!-- signup Modal -->
 <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -111,9 +202,7 @@
 
 
 <%--category bar--%>
-<div class="text-center mt-4">
-    <h3>Book Categories</h3>
-</div>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-dark  mt-2">
     <div class="container-fluid">
         <div class="text-center" >
@@ -122,8 +211,8 @@
                     List<Category> categories = (List<Category>) request.getAttribute("categories");
                     for (Category category : categories){
                 %>
-                <li class="nav-item">
-                    <a class="nav-link text-white btn" aria-current="page" href="/book/category/<%=category.getId()%>"><%=category.getCategoryName()%></a>
+                <li class="nav-item ">
+                    <a class="nav-link text-white btn btn-secondary mx-1 " aria-current="page" href="/book/category/<%=category.getId()%>"><%=category.getCategoryName()%></a>
                 </li>
                 <%  }  %>
             </ul>
@@ -142,7 +231,7 @@
         %>
 
         <div class="col-3 my-3">
-            <div class="card" style="width: 16rem;">
+            <div class="card shadow-lg" style="width: 16rem;">
                 <img src="/resourceURL/image/book_img.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><%=book.getTitle()%></h5>
