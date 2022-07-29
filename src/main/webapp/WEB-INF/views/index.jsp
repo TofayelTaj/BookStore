@@ -1,8 +1,5 @@
-<%@ page import="com.example.bookstore.entities.Book" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.bookstore.entities.Category" %>
-<%@ page import="com.example.bookstore.entities.CartItem" %>
-<%@ page import="com.example.bookstore.entities.Order" %>
+<%@ page import="com.example.bookstore.entities.*" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -85,7 +82,7 @@
                                         Tk.<%=cartItem.getBook().getPrice()%>
                                     </div>
                                     <div class="col-3">
-                                        <a  href="/cart/<%=cartItem.getId()%>" class="btn btn-sm btn-danger">Remove</a>
+                                        <a href="/cart/<%=cartItem.getId()%>" class="btn btn-sm btn-danger">Remove</a>
                                     </div>
                                 </div>
                             </div>
@@ -97,15 +94,63 @@
                         <div class="modal-footer">
                             <h6>Total : <%=totalPrice%>
                             </h6>
-                            <a href="/order" type="button" class="btn btn-primary">Order Now</a>
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#orderModal">
+                                Order
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <a  class="btn btn-warning me-2" href="/order/all"> Orders</a>
-            <p class="text-white mt-2 me-2"><%=request.getUserPrincipal().getName()%>
-            </p>
+
+            <!-- Button trigger modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Shipping Address</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form action="/order">
+
+                                <select name="addressId" >
+                                <%
+                                    List<ShippingAddress> addressList = (List<ShippingAddress>) request.getAttribute("addressList");
+                                    for (ShippingAddress address : addressList){
+                                %>
+                                    <option value="<%=address.getId()%>"><%=address.getAddressLine()%></option>
+
+                                    <% } %>
+
+                                  </select>
+
+                                <button class="btn btn-primary" type="submit">Confirm Order</button>
+                            </form>
+
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <a class="btn btn-warning me-2" href="/address">Shipping Address</a>
+            <a class="btn btn-warning me-2" href="/order/all"> Orders</a>
+            <p class="text-white mt-2 me-2"><%=request.getUserPrincipal().getName()%></p>
             <a class="btn btn-sm btn-danger" href="/logout"> log out</a>
 
 
@@ -202,8 +247,8 @@
                 <button type="submit" class="btn btn-primary">Sign Up</button>
             </form>
 
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Login Modal -->
@@ -228,8 +273,8 @@
                 <button type="submit" class="btn btn-primary">Log in</button>
             </form>
 
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -237,7 +282,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark  mt-2">
     <div class="container-fluid">
-        <div class="text-center" >
+        <div class="text-center">
             <ul class="navbar-nav">
                 <%
                     List<Category> categories = (List<Category>) request.getAttribute("categories");

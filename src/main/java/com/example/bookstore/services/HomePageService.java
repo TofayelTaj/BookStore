@@ -21,6 +21,8 @@ public class HomePageService {
     private CartItemService cartItemService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ShippingAddressService shippingAddressService;
     public ModelAndView getIndexPage( Principal principal, List<Book> books, List<Category> categories){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
@@ -31,7 +33,7 @@ public class HomePageService {
             modelAndView.addObject("cartItemCount", cartItemService.getCartItemCount(customer.getId()));
             modelAndView.addObject("cartItems", cartItemService.getCartItemsByCustomerId(customer.getId()));
             modelAndView.addObject("orders", orderService.orderListByCustomerId(customer.getId()));
-        }
+            modelAndView.addObject("addressList", shippingAddressService.getAllShippingAddressByCustomerId(customer.getId()));        }
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("books", books);
         return modelAndView;

@@ -14,11 +14,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Order Details</title>
+    <title>shipping address</title>
 </head>
 <body>
 
-<%--nav bar--%>
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand text-white" href="/">Book Store</a>
@@ -224,55 +225,44 @@
 </nav>
 
 
-<div class="container-fluid text-center my-3">
-    <h3>Orders</h3>
 
-    <form action="/order/filter">
 
-        <select name="status" >
-            <option value="all">All</option>
 
-            <%
 
-                for (OrderStatus status : OrderStatus.values()){
-
-            %>
-            <option value="<%=status.name()%>"><%=status.name()%></option>
-            <% } %>
-        </select>
-
-        <input type="submit" value="Filter">
-
-    </form>
-</div>
-<%--Order list view--%>
 <div class="container">
 
-    <div class="row">
 
-        <%
-            List<Order> orders = (List<Order>) request.getAttribute("orders");
-            for (Order order : orders) {
-        %>
+    <div class="row mb-4">
 
-        <div class="col-3 my-3">
-            <div class="card shadow-lg " style="width: 16rem;">
-                <img src="/resourceURL/image/book_img.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><%=order.getBook().getTitle()%>
-                    </h5>
-                    <p class="card-text"> Price :  <%=order.getBook().getPrice()%>
-                    </p>
-                    <p class="card-text"> Status : <%=order.getStatus()%>
-                    </p>
+        <h4> Add new Address</h4>
 
-                </div>
+        <form action="/address/add">
+            <div class="form-controll">
+                <label>Address Line..</label>
+                <input type="text" name="addressLine">
             </div>
+            <input type="submit" value="Add">
+        </form>
 
-        </div>
-
-        <%}%>
     </div>
+
+
+    <div class="row">
+        <h3>All Address</h3>
+
+            <%
+                List<ShippingAddress> addressList = (List<ShippingAddress>) request.getAttribute("addressList");
+                for (ShippingAddress address : addressList){
+            %>
+
+                <h5><%=address.getAddressLine()%></h5>
+        <br>
+
+        <% } %>
+
+
+    </div>
+
 </div>
 
 

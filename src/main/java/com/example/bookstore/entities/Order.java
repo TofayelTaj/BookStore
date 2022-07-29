@@ -24,5 +24,7 @@ public class Order {
     private Customer customer;
     @ManyToOne(cascade = CascadeType.ALL)
     private Book book;
+    @OneToOne(cascade = CascadeType.ALL)
+    private ShippingAddress shippingAddress;
 
 }

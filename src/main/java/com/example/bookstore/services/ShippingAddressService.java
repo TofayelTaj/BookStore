@@ -5,6 +5,8 @@ import com.example.bookstore.repositories.ShippingAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShippingAddressService {
 
@@ -16,5 +18,13 @@ public class ShippingAddressService {
         shippingAddressRepository.save(address);
     }
 
+    public List<ShippingAddress> getAllShippingAddressByCustomerId(long id){
+       return shippingAddressRepository.findAllByCustomerId(id);
+    }
+
+
+    public ShippingAddress findById(long id){
+        return shippingAddressRepository.findById(id).get();
+    }
 
 }
