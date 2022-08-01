@@ -27,4 +27,16 @@ public class OrderService {
     }
 
 
+    public List<Order> findAllByStatus(String status){
+       return orderRepository.findAllByStatus(status);
+    }
+
+    public List<Order> allOrders(){
+        return orderRepository.findAll();
+    }
+
+    public void changeStatusByOrderId(String status, Long id){
+        orderRepository.changeStatusByOrderId(status, id);
+    }
+
 }

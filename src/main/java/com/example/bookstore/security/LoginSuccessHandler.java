@@ -18,7 +18,7 @@ public class LoginSuccessHandler  extends SavedRequestAwareAuthenticationSuccess
         if(authentication.getPrincipal() instanceof CustomerDetails){
             path = "/";
         }else {
-            path = "/admin";
+            path = "/admin/?status=all";
         }
         response.sendRedirect(path);
     }

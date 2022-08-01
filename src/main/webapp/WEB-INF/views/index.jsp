@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.bookstore.entities.*" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,8 +13,28 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Book Store || Home</title>
+
+
+
+    <script type="text/javascript">
+        function myfn(){
+            alert("error")
+        }
+
+    </script>
 </head>
 <body>
+
+
+<%
+
+    if(request.getAttribute("error") != null && request.getAttribute("error").equals(true)){
+%>
+
+<h2>error</h2>
+    <button onclick="myfn()">error</button>
+
+<% } %>
 
 <%--nav bar--%>
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -35,9 +56,9 @@
             <button data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-outline-info btn text-white mx-2">
                 Login
             </button>
-            <button data-bs-toggle="modal" data-bs-target="#signupModal" class="btn-outline-info btn text-white"> Sign
+            <a href="/customer/sign-up"   class="btn-outline-info btn text-white"> Sign
                 up
-            </button>
+            </a>
             <%
             } else {
             %>
@@ -230,7 +251,7 @@
                 <h4>Sign Up</h4>
             </div>
             <hr>
-            <form action="/customer" method="post">
+            <form action="/customer/sign-up" method="post">
                 <div class="mb-2">
                     <label class="form-label">Name</label>
                     <input type="text" name="name" class="form-control" aria-describedby="emailHelp">

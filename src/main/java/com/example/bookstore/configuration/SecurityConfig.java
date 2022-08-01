@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/",
-                        "/customer",
+                        "/customer/**",
                         "/resourceURL/**",
                         "/admin/register",
                         "/login",
