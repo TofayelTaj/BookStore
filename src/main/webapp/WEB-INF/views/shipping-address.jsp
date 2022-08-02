@@ -234,6 +234,12 @@
 
     <div class="row mb-4">
 
+        <% if(request.getAttribute("addressError") != null){  %>
+        <div class="alert alert-danger mt-4">
+            <%=request.getAttribute("addressError")%>
+        </div>
+
+                    <% } %>
         <h4> Add new Address</h4>
 
         <form action="/address/add">

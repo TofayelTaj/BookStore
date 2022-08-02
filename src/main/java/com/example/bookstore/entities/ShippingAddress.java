@@ -17,7 +17,7 @@ public class ShippingAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull()
-    @Size(min = 4, max = 100)
+    @Size(min = 4, max = 100, message = "Address must be between 4 to 100 character")
     private String addressLine;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
