@@ -3,7 +3,7 @@ package com.example.bookstore.controllers;
 import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.CartItem;
 import com.example.bookstore.services.CartItemService;
-import com.example.bookstore.services.CustomerService;
+import com.example.bookstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +19,14 @@ public class CartItemController {
     private CartItemService cartItemService;
 
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
 
     @PostMapping
     public String addToCart(@ModelAttribute CartItem cartItem, @ModelAttribute Book book, HttpServletRequest request){
 
         String name = request.getUserPrincipal().getName();
-        cartItem.setCustomer(customerService.findByEmail(name));
+        cartItem.setUser(userService.findByEmail(name));
         cartItemService.addToCart(cartItem);
         return "redirect:" + request.getHeader("referer");
     }

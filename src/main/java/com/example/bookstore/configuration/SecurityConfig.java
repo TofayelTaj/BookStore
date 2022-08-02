@@ -1,8 +1,7 @@
 package com.example.bookstore.configuration;
 
 import com.example.bookstore.enums.UserType;
-import com.example.bookstore.security.AdminDetailsServiceImpl;
-import com.example.bookstore.security.CustomerDetailsServiceImpl;
+import com.example.bookstore.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -23,13 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordConfig passwordConfig;
 
     @Bean
-    protected UserDetailsService adminUserDetailsService() {
-        return new AdminDetailsServiceImpl();
-    }
-
-    @Bean
-    protected UserDetailsService customerUserDetailsService(){
-        return new CustomerDetailsServiceImpl();
+    protected UserDetailsService applicationUserDetailsService(){
+        return new UserDetailsServiceImpl();
     }
 
     @Override
@@ -41,14 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/",
                         "/customer/**",
                         "/resourceURL/**",
+                        "/user/sign-up",
                         "/admin/register",
                         "/login",
                         "/logout",
                         "/book/category/*"
                 )
                 .permitAll()
-                .antMatchers("/admin")
-                .hasAuthority(UserType.ADMIN.name())
+                .antMatchers("/admin/**")
+                .hasRole(UserType.ADMIN.toString())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -61,25 +56,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    protected DaoAuthenticationProvider adminDaoAuthenticationProvider(){
+    protected DaoAuthenticationProvider applicationUserDaoAuthenticationProvider(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(this.adminUserDetailsService());
+        daoAuthenticationProvider.setUserDetailsService(this.applicationUserDetailsService());
         daoAuthenticationProvider.setPasswordEncoder(passwordConfig.passwordEncoder());
         return daoAuthenticationProvider;
     }
-
-    @Bean
-    protected DaoAuthenticationProvider customerDaoAuthenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordConfig.passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(this.customerUserDetailsService());
-        return daoAuthenticationProvider;
-    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .authenticationProvider(this.adminDaoAuthenticationProvider())
-                .authenticationProvider(this.customerDaoAuthenticationProvider());
+                .authenticationProvider(this.applicationUserDaoAuthenticationProvider());
+
     }
 }

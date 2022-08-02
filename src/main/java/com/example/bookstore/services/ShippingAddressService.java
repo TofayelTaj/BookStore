@@ -19,7 +19,7 @@ public class ShippingAddressService {
     }
 
     public List<ShippingAddress> getAllShippingAddressByCustomerId(long id){
-       return shippingAddressRepository.findAllByCustomerId(id);
+       return shippingAddressRepository.findAllByUserId(id);
     }
 
 

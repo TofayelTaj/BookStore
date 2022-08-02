@@ -11,15 +11,15 @@ import java.util.List;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
-    @Query(value = "SELECT count('customer_id') FROM cart_item where customer_id = :customer_id", nativeQuery = true)
-    int getCartItemCountByUserId(@Param("customer_id") Long customer_id);
+    @Query(value = "SELECT count('customer_id') FROM cart_item where user_id = :userId", nativeQuery = true)
+    int getCartItemCountByUserId(@Param("userId") Long userId);
 
-    @Query(value = "SELECT * FROM cart_item where customer_id = :customerId", nativeQuery = true)
-    List<CartItem> getCartItemsByCustomerId(@Param("customerId") Long customerId);
+    @Query(value = "SELECT * FROM cart_item where user_id = :userId", nativeQuery = true)
+    List<CartItem> getCartItemsByCustomerId(@Param("userId") Long userId);
 
     @Modifying
     @Transactional
-    @Query(value = "delete  FROM cart_item where customer_id = :customerId", nativeQuery = true)
-    void formatCartByCustomerId(@Param("customerId") Long customerId);
+    @Query(value = "delete  FROM cart_item where user_id = :userId", nativeQuery = true)
+    void formatCartByCustomerId(@Param("userId") Long userId);
 
 }

@@ -1,38 +1,34 @@
 package com.example.bookstore.security;
 
-import com.example.bookstore.entities.Customer;
-import com.example.bookstore.enums.UserType;
+import com.example.bookstore.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
-public class CustomerDetails implements UserDetails {
+public class ApplicationUserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
-
-    private Customer customer;
-
-    public CustomerDetails(Customer customer){
-        this.customer = customer;
+    private User user;
+    public ApplicationUserDetails(User user){
+        this.user = user;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(UserType.CUSTOMER.name());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+user.getRole().toString());
         return List.of(authority);
     }
 
     @Override
     public String getPassword() {
-        return customer.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return customer.getEmail();
+        return user.getEmail();
     }
 
     @Override

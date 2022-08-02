@@ -20,7 +20,7 @@ public class ShippingAddress {
     @Size(min = 4, max = 100)
     private String addressLine;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Customer customer;
+    private User user;
 
 
 }

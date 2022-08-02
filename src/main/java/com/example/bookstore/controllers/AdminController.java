@@ -1,12 +1,10 @@
 package com.example.bookstore.controllers;
 
 
-import com.example.bookstore.entities.Admin;
 import com.example.bookstore.services.AdminService;
 import com.example.bookstore.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,13 +29,6 @@ public class AdminController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegistrationPage() {
-        return "admin-registration";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegistration(@ModelAttribute Admin admin, Model model) {
-        adminService.saveAdmin(admin);
-        model.addAttribute("saveMsg", "admin save successful");
         return "admin-registration";
     }
 }

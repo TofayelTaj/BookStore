@@ -19,9 +19,9 @@ public class Order {
     private String status;
     @ManyToOne()
     @JoinColumn(
-            name = "customer_id"
+            name = "user_id"
     )
-    private Customer customer;
+    private User user;
     @ManyToOne(cascade = CascadeType.ALL)
     private Book book;
     @OneToOne(cascade = CascadeType.ALL)

@@ -12,11 +12,11 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
 
-    @Query(value = "select * from order_table where customer_id = :customerId", nativeQuery = true)
-    List<Order> findAllByCustomerId(@Param("customerId") Long customerId);
+    @Query(value = "select * from order_table where user_id = :userId", nativeQuery = true)
+    List<Order> findAllByUserId(@Param("userId") Long userId);
 
-    @Query(value = "select * from order_table where customer_id = :customerId and status = :status", nativeQuery = true)
-    List<Order> findAllByCustomerIdAndStatus(@Param("customerId") Long customerId, @Param("status") String status);
+    @Query(value = "select * from order_table where user_id = :userId and status = :status", nativeQuery = true)
+    List<Order> findAllByUserIdAndStatus(@Param("userId") Long userId, @Param("status") String status);
     @Query(value = "select * from order_table where status = :status", nativeQuery = true)
     List<Order> findAllByStatus(@Param("status") String status);
 

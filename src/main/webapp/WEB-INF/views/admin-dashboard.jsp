@@ -84,7 +84,7 @@
 
                 <tr>
 
-                    <td><%=order.getCustomer().getName()%>
+                    <td><%=order.getUser().getName()%>
                     </td>
                     <td><%=order.getShippingAddress().getAddressLine()%>
                     </td>

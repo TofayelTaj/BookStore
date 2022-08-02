@@ -18,12 +18,12 @@ public class OrderService {
     }
 
 
-    public List<Order> orderListByCustomerId(Long customerId){
-       return orderRepository.findAllByCustomerId(customerId);
+    public List<Order> orderListByUserId(Long customerId){
+       return orderRepository.findAllByUserId(customerId);
     }
 
-    public List<Order> findOrdersByCustomerIdAndStatus(Long customerId, String status){
-        return orderRepository.findAllByCustomerIdAndStatus(customerId, status);
+    public List<Order> findOrdersByUserIdAndStatus(Long customerId, String status){
+        return orderRepository.findAllByUserIdAndStatus(customerId, status);
     }
 
 

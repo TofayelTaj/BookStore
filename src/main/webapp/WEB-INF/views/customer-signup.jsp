@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.springframework.validation.FieldError" %>
+<%@ page import="com.example.bookstore.enums.UserType" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
@@ -51,8 +52,10 @@
 
 <div class="container">
 
-    <form class="p-4" action="/customer/sign-up" method="post">
+    <form class="p-4" action="/user/sign-up" method="post">
 
+
+        <input type="hidden" name="role" value="<%=UserType.CUSTOMER%>">
         <%
             if (request.getAttribute("error") != null) {
         %>

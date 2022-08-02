@@ -1,11 +1,11 @@
 package com.example.bookstore.controllers;
 
-import com.example.bookstore.entities.Customer;
 import com.example.bookstore.entities.ShippingAddress;
+import com.example.bookstore.entities.User;
 import com.example.bookstore.repositories.ShippingAddressRepository;
-import com.example.bookstore.services.CustomerService;
 import com.example.bookstore.services.HomePageService;
 import com.example.bookstore.services.ShippingAddressService;
+import com.example.bookstore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class ShippingAddressController {
     @Autowired
     private HomePageService homePageService;
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @Autowired
     private ShippingAddressRepository shippingAddressRepository;
@@ -40,8 +40,8 @@ public class ShippingAddressController {
 
     @GetMapping("/add")
     public String addShippingAddress(@ModelAttribute ShippingAddress address, HttpServletRequest request, Principal principal) {
-        Customer customer = customerService.findByEmail(principal.getName());
-        address.setCustomer(customer);
+        User user = userService.findByEmail(principal.getName());
+        address.setUser(user);
         shippingAddressRepository.save(address);
 
         return "redirect:" + request.getHeader("referer");

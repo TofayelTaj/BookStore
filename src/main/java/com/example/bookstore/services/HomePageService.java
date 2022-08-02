@@ -2,7 +2,7 @@ package com.example.bookstore.services;
 
 import com.example.bookstore.entities.Book;
 import com.example.bookstore.entities.Category;
-import com.example.bookstore.entities.Customer;
+import com.example.bookstore.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +16,7 @@ public class HomePageService {
     @Autowired
     private BookService bookService;
     @Autowired
-    private CustomerService customerService;
+    private UserService customerService;
     @Autowired
     private CartItemService cartItemService;
     @Autowired
@@ -27,13 +27,13 @@ public class HomePageService {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
 
-        Customer customer = null;
+        User user = null;
         if(principal != null) {
-            customer = customerService.findByEmail(principal.getName());
-            modelAndView.addObject("cartItemCount", cartItemService.getCartItemCount(customer.getId()));
-            modelAndView.addObject("cartItems", cartItemService.getCartItemsByCustomerId(customer.getId()));
-            modelAndView.addObject("orders", orderService.orderListByCustomerId(customer.getId()));
-            modelAndView.addObject("addressList", shippingAddressService.getAllShippingAddressByCustomerId(customer.getId()));        }
+            user = customerService.findByEmail(principal.getName());
+            modelAndView.addObject("cartItemCount", cartItemService.getCartItemCount(user.getId()));
+            modelAndView.addObject("cartItems", cartItemService.getCartItemsByCustomerId(user.getId()));
+            modelAndView.addObject("orders", orderService.orderListByUserId(user.getId()));
+            modelAndView.addObject("addressList", shippingAddressService.getAllShippingAddressByCustomerId(user.getId()));        }
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("books", books);
         return modelAndView;

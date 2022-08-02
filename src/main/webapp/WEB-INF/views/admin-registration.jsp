@@ -1,4 +1,5 @@
 <%@ page import="org.springframework.ui.Model" %>
+<%@ page import="com.example.bookstore.enums.UserType" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,8 +17,9 @@
 
 <h1>Admin Registration Page</h1>
 
-<form action="/admin/register" method="post">
+<form action="/user/sign-up" method="post">
 
+    <input type="hidden" name="role" value="<%=UserType.ADMIN%>">
     <label > Enter Name : </label>
     <input type="text" name="name">
 

@@ -1,5 +1,7 @@
 package com.example.bookstore.entities;
 
+
+import com.example.bookstore.enums.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +14,9 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+@NoArgsConstructor
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +31,10 @@ public class Customer {
     private String email;
     @Size(min = 5, max = 60)
     private String password;
+    @Enumerated(EnumType.STRING)
+    private UserType role;
     @OneToMany
     private List<ShippingAddress> shippingAddressList;
+
 
 }
